@@ -1,27 +1,29 @@
 import React from 'react';
 import TimeDisplay from './TimeDisplay';
-
-import store from '../store/index';
+import storeGen from '../store/index';
+import { Provider }  from './appContext'
 
 class App extends React.Component {
-    state = store.state;
-
-    // lifecyle component 
-    componentDidMount() {
-        store.on('change', () =>{
-            this.setState(store.state);
-        });
-    }
-
     render() {
         return (
             <div className="demo">
                 Hello React
                 <input />
-                <TimeDisplay  time={this.state.time} />
+                <TimeDisplay />
             </div>
         );
     }
 }
 
-export default App;
+class Root extends React.Component {
+    store = storeGen();
+    render() {
+        return (
+            <Provider value={this.store}>
+                <App />
+            </Provider>
+        );
+    }
+}
+
+export default Root;

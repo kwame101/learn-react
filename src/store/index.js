@@ -1,14 +1,16 @@
 const EventEmitter = require('events');
 
-const store = new EventEmitter();
+export default () => {
+  const store = new EventEmitter();
 
-store.state = {
-  time: new Date(),
+  store.state = {
+    time: new Date(),
+  };
+
+  setInterval(() => {
+    store.state.time = new Date();
+    store.emit('change');
+  }, 1000);
+
+  return store;
 };
-
-setInterval(() => {
-  store.state.time = new Date();
-  store.emit('change');
-}, 1000);
-
-export default store;
