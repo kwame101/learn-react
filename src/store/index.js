@@ -9,7 +9,7 @@ export default () => {
 
   setInterval(() => {
     store.state.time = new Date();
-    store.emit('change');
+    store.emit('change', store.state);
   }, 1000);
 
   return store;
